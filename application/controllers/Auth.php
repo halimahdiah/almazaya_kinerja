@@ -6,11 +6,13 @@ class Auth extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('M_User');
+        $this->load->library('form_validation');
+        $this->load->library('session');
 	}
 
 	public function index()
 	{
-		$this->load->view('auth/login');
+		$this->load->view('login');
 	}
 
 	public function login() {
@@ -36,7 +38,7 @@ class Auth extends CI_Controller {
 			$this->session->set_userdata($session);
 			redirect("staff");
 		} else {
-			$this->session->set_flashdata('message', 'Username atau Password Salah');
+			$this->session->set_flashdata('error_login', 'Username atau Password Salah');
 			redirect("auth");
 		}
 	}
